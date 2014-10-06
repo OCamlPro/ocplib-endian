@@ -15,6 +15,8 @@
 (*                                                                      *)
 (************************************************************************)
 
+(** Efficient low level access for bytes *)
+
 module type EndianBytesSig = sig
   (** Functions reading according to Big Endian byte order *)
 

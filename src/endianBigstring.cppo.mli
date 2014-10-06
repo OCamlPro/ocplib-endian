@@ -1,7 +1,7 @@
 (************************************************************************)
-(*  ocp-read                                                            *)
+(*  ocplib-endian                                                       *)
 (*                                                                      *)
-(*    Copyright 2012 OCamlPro                                           *)
+(*    Copyright 2012-2014 OCamlPro                                      *)
 (*                                                                      *)
 (*  This file is distributed under the terms of the GNU Lesser General  *)
 (*  Public License as published by the Free Software Foundation; either *)
@@ -14,6 +14,8 @@
 (*  GNU General Public License for more details.                        *)
 (*                                                                      *)
 (************************************************************************)
+
+(** Efficient low level access for 1 dimensionnal character bigarrays *)
 
 open Bigarray
 type bigstring = (char, int8_unsigned_elt, c_layout) Array1.t
