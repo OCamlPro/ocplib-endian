@@ -1,7 +1,8 @@
 0.7
----
+---------------
 
 * Replace optcomp with cppo, removing hard dependency on camlp4.
+* Build documentation
 
 0.6
 ---------------

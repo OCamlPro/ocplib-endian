@@ -49,7 +49,16 @@ Test test
 # | Misc                                                              |
 # +-------------------------------------------------------------------+
 
+Document api
+  Type: ocamlbuild (0.3)
+  BuildTools: ocamldoc
+  Title: API reference for ocplib-endian
+  XOCamlbuildPath: .
+  XOCamlbuildLibraries:
+    ocplib-endian, ocplib-endian.bigstring
+
 SourceRepository head
   Type: git
   Location: https://github.com/OCamlPro/ocplib-endian.git
+  Branch: master
   Browser: https://github.com/OCamlPro/ocplib-endian
