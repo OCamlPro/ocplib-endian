@@ -1,5 +1,5 @@
 # Edit this for your own project dependencies
-OPAM_DEPENDS="ocamlfind optcomp bytes"
+OPAM_DEPENDS="ocamlfind>=1.5.3 cppo"
 
 case "$OCAML_VERSION,$OPAM_VERSION" in
 3.12.1,1.2.0) ppa=avsm/ocaml312+opam12 ;;
