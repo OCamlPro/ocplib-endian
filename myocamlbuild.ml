@@ -569,10 +569,43 @@ let has_safe_string =
   with e ->
     false
 
+(* https://github.com/mjambon/cppo/blob/master/ocamlbuild_plugin/ocamlbuild_cppo.ml
+   Add a dependency after dropping support for 4.01 and earlier. *)
+let dispatch_cppo = function
+  | After_rules -> begin
+      let dep = "%(name).cppo.ml" in
+      let prod1 = "%(name: <*> and not <*.cppo>).ml" in
+      let prod2 = "%(name: <**/*> and not <**/*.cppo>).ml" in
+      let f prod env _build =
+        let dep = env dep in
+        let prod = env prod in
+        let tags = tags_of_pathname prod ++ "cppo" in
+        Cmd (S[A "cppo"; T tags; S [A "-o"; P prod]; P dep ])
+      in
+      rule "cppo1" ~dep ~prod:prod1 (f prod1) ;
+      rule "cppo2" ~dep ~prod:prod2 (f prod2) ;
+      pflag ["cppo"] "cppo_D" (fun s -> S [A "-D"; A s]) ;
+      pflag ["cppo"] "cppo_U" (fun s -> S [A "-U"; A s]) ;
+      pflag ["cppo"] "cppo_I" (fun s ->
+        if Pathname.is_directory s then S [A "-I"; P s]
+        else S [A "-I"; P (Pathname.dirname s)]
+      ) ;
+      pdep ["cppo"] "cppo_I" (fun s ->
+        if Pathname.is_directory s then [] else [s]) ;
+      flag ["cppo"; "cppo_q"] (A "-q") ;
+      flag ["cppo"; "cppo_s"] (A "-s") ;
+      flag ["cppo"; "cppo_n"] (A "-n") ;
+      pflag ["cppo"] "cppo_x" (fun s -> S [A "-x"; A s]);
+      pflag ["cppo"] "cppo_V" (fun s -> S [A "-V"; A s]);
+      flag ["cppo"; "cppo_V_OCAML"] & S [A "-V"; A ("OCAML:" ^ Sys.ocaml_version)]
+    end
+  | _ -> ()
+
 let () =
   dispatch
     (fun hook ->
        dispatch_default hook;
+       dispatch_cppo hook;
        match hook with
          | After_rules ->
             dep ["include_common"]
@@ -588,5 +621,6 @@ let () =
                 ["src"/"be_ocaml_400.ml";
                  "src"/"le_ocaml_400.ml";
                  "src"/"ne_ocaml_400.ml"];
+            List.iter mark_tag_used ["include_common"; "include_401"; "include_400"]
          | _ ->
              ())
