@@ -620,7 +620,6 @@ let () =
             dep ["include_400"]
                 ["src"/"be_ocaml_400.ml";
                  "src"/"le_ocaml_400.ml";
-                 "src"/"ne_ocaml_400.ml"];
-            List.iter mark_tag_used ["include_common"; "include_401"; "include_400"]
+                 "src"/"ne_ocaml_400.ml"]
          | _ ->
              ())
