@@ -1,7 +1,14 @@
+#if OCAML_VERSION >= (4, 03, 0)
 external swap16 : int -> int = "%bswap16"
 external swap32 : int32 -> int32 = "%bswap_int32"
 external swap64 : int64 -> int64 = "%bswap_int64"
 external swapnative : nativeint -> nativeint = "%bswap_native"
+#else
+external swap16 : int -> int = "caml_bswap16"
+external swap32 : int32 -> int32 = "caml_int32_bswap"
+external swap64 : int64 -> int64 = "caml_int64_bswap"
+external swapnative : nativeint -> nativeint = "caml_nativeint_bswap"
+#endif
 
 module BigEndian = struct
 
