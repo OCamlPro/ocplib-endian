@@ -16,13 +16,13 @@ bug-reports: "https://github.com/OCamlPro/ocplib-endian/issues"
 depends: [
   "base-bytes"
   "cppo" {>= "1.1.0"}
-  "jbuilder" {build}
+  "dune" {build & >= "1.0"}
 ]
 build: [
-  ["jbuilder" "build" "--only-packages" "ocplib-endian" "--root" "." "-j" jobs "@install"]
+  ["dune" "build" "-p" name "-j" jobs]
 ]
 build-test: [
-  ["jbuilder" "runtest" "--only-packages" "ocplib-endian" "--root" "." "-j" jobs]
+  ["dune" "runtest" "-p" name "-j" jobs]
 ]
 dev-repo: "git+https://github.com/OCamlPro/ocplib-endian.git"
 url {

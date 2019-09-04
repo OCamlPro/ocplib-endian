@@ -3,10 +3,19 @@ open EndianString
 let to_t = Bytes.unsafe_to_string
 (* do not allocate to avoid breaking tests *)
 
-module BE = BigEndian
-module LE = LittleEndian
+module BE = struct
+  include (BigEndian : EndianSig.R with type t = string)
+  include (EndianBytes.BigEndian : EndianSig.W with type t := Bytes.t)
+end
+module LE = struct
+  include (LittleEndian : EndianSig.R with type t = string)
+  include (EndianBytes.LittleEndian : EndianSig.W with type t := Bytes.t)
+end
 #if OCAML_VERSION >= (4, 00, 0)
-module NE = NativeEndian
+module NE = struct
+  include (NativeEndian : EndianSig.R with type t = string)
+  include (EndianBytes.NativeEndian : EndianSig.W with type t := Bytes.t)
+end
 #endif
 
 #if OCAML_VERSION >= (4, 00, 0)
@@ -22,14 +31,14 @@ let assert_bound_check2 f v1 v2 =
     ignore(f v1 v2);
     assert false
   with
-     | Invalid_argument("index out of bounds") -> ()
+     | Invalid_argument _ -> ()
 
 let assert_bound_check3 f v1 v2 v3 =
   try
     ignore(f v1 v2 v3);
     assert false
   with
-     | Invalid_argument("index out of bounds") -> ()
+     | Invalid_argument _ -> ()
 
 let test1 () =
   assert_bound_check2 BE.get_int8 (to_t s) (-1);

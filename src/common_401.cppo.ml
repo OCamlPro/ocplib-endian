@@ -5,6 +5,8 @@ external swapnative : nativeint -> nativeint = "%bswap_native"
 
 module BigEndian = struct
 
+  type nonrec t = t
+
   let get_char = get_char
   let get_uint8 = get_uint8
   let get_int8 = get_int8
@@ -17,6 +19,8 @@ module BigEndian = struct
 end
 
 module BigEndian_unsafe = struct
+
+  type nonrec t = t
 
   let get_char = unsafe_get_char
   let get_uint8 = unsafe_get_uint8
@@ -37,6 +41,8 @@ end
 
 module LittleEndian = struct
 
+  type nonrec t = t
+
   let get_char = get_char
   let get_uint8 = get_uint8
   let get_int8 = get_int8
@@ -49,6 +55,8 @@ module LittleEndian = struct
 end
 
 module LittleEndian_unsafe = struct
+
+  type nonrec t = t
 
   let get_char = unsafe_get_char
   let get_uint8 = unsafe_get_uint8
@@ -69,6 +77,8 @@ end
 
 module NativeEndian = struct
 
+  type nonrec t = t
+
   let get_char = get_char
   let get_uint8 = get_uint8
   let get_int8 = get_int8
@@ -81,6 +91,8 @@ module NativeEndian = struct
 end
 
 module NativeEndian_unsafe = struct
+
+  type nonrec t = t
 
   let get_char = unsafe_get_char
   let get_uint8 = unsafe_get_uint8
