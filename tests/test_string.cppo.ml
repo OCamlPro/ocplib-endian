@@ -22,14 +22,14 @@ let assert_bound_check2 f v1 v2 =
     ignore(f v1 v2);
     assert false
   with
-     | Invalid_argument("index out of bounds") -> ()
+     | Invalid_argument _ -> ()
 
 let assert_bound_check3 f v1 v2 v3 =
   try
     ignore(f v1 v2 v3);
     assert false
   with
-     | Invalid_argument("index out of bounds") -> ()
+     | Invalid_argument _ -> ()
 
 let test1 () =
   assert_bound_check2 BE.get_int8 (to_t s) (-1);
