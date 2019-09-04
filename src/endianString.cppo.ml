@@ -15,9 +15,10 @@
 (*                                                                      *)
 (************************************************************************)
 
+type t = string
+
 module type EndianStringSig = sig
-  include EndianSig.GET with type t := string
-  include EndianSig.SET with type t := Bytes.t
+  include EndianSig.R with type t = string
 end
 
 let get_char (s:string) off =

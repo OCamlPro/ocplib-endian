@@ -16,10 +16,7 @@
 (************************************************************************)
 
 module type EndianStringSig = sig
-  include EndianSig.GET with type t := string
-
-  include EndianSig.SET with type t := Bytes.t
-  (** @deprecated Use [EndianBytes.set_*] directly. *)
+  include EndianSig.R with type t = string
 end
 
 module BigEndian : sig

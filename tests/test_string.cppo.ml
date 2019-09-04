@@ -3,10 +3,19 @@ open EndianString
 let to_t = Bytes.unsafe_to_string
 (* do not allocate to avoid breaking tests *)
 
-module BE = BigEndian
-module LE = LittleEndian
+module BE = struct
+  include (BigEndian : EndianSig.R with type t = string)
+  include (EndianBytes.BigEndian : EndianSig.W with type t := Bytes.t)
+end
+module LE = struct
+  include (LittleEndian : EndianSig.R with type t = string)
+  include (EndianBytes.LittleEndian : EndianSig.W with type t := Bytes.t)
+end
 #if OCAML_VERSION >= (4, 00, 0)
-module NE = NativeEndian
+module NE = struct
+  include (NativeEndian : EndianSig.R with type t = string)
+  include (EndianBytes.NativeEndian : EndianSig.W with type t := Bytes.t)
+end
 #endif
 
 #if OCAML_VERSION >= (4, 00, 0)

@@ -15,7 +15,7 @@
 (*                                                                      *)
 (************************************************************************)
 
-module type GET = sig
+module type R = sig
   (** Byte-order-aware functions for reading *)
 
   type t
@@ -56,7 +56,7 @@ module type GET = sig
 
 end
 
-module type SET = sig
+module type W = sig
   (** Byte-order-aware functions for writing *)
 
   type t
@@ -87,4 +87,10 @@ module type SET = sig
   (** [set_double buff i v] is equivalent to
       [set_int64 buff i (Int64.bits_of_float v)] *)
 
+end
+
+module type RW = sig
+  type t
+  include R with type t := t
+  include W with type t := t
 end
