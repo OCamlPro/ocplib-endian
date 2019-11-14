@@ -16,7 +16,7 @@
 (************************************************************************)
 
 module type EndianBytesSig = sig
-  include EndianSig.RW with type t = Bytes.t
+  include EndianSig.FULL with type t = Bytes.t
 end
 
 module BigEndian : sig

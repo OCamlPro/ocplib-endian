@@ -16,7 +16,7 @@
 (************************************************************************)
 
 module type EndianStringSig = sig
-  include EndianSig.R with type t = string
+  include EndianSig.GET with type t = string
 end
 
 module BigEndian : sig

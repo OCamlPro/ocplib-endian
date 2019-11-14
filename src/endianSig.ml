@@ -15,7 +15,7 @@
 (*                                                                      *)
 (************************************************************************)
 
-module type R = sig
+module type GET = sig
   (** Byte-order-aware functions for reading *)
 
   type t
@@ -56,7 +56,7 @@ module type R = sig
 
 end
 
-module type W = sig
+module type SET = sig
   (** Byte-order-aware functions for writing *)
 
   type t
@@ -89,8 +89,8 @@ module type W = sig
 
 end
 
-module type RW = sig
+module type FULL = sig
   type t
-  include R with type t := t
-  include W with type t := t
+  include GET with type t := t
+  include SET with type t := t
 end

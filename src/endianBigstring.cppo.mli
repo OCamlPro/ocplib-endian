@@ -19,7 +19,7 @@ open Bigarray
 type bigstring = (char, int8_unsigned_elt, c_layout) Array1.t
 
 module type EndianBigstringSig = sig
-  include EndianSig.RW with type t = bigstring
+  include EndianSig.FULL with type t = bigstring
 end
 
 module BigEndian : sig

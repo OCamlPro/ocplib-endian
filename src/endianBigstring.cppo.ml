@@ -21,7 +21,7 @@ type bigstring = (char, int8_unsigned_elt, c_layout) Array1.t
 type t = bigstring
 
 module type EndianBigstringSig = sig
-  include EndianSig.RW with type t = bigstring
+  include EndianSig.FULL with type t = bigstring
 end
 
 let get_char (s:bigstring) off =
